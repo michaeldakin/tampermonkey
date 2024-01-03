@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name         statusHighlight.js
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Highlight cases with specific table paramaters for Salesforce Performance edition
 // @require      https://cdn.jsdelivr.net/gh/CoeJoder/waitForKeyElements.js@v1.2/waitForKeyElements.js
 // @author       Michael Dakin
 // @match        https://*.my.salesforce.com/500*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/caseHighlight/statusHighlight.js
+// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/statusHighlight.js
 // ==/UserScript==
 
 /*
 * Version history:
 * 0.1 - here we are
+* 0.2 - cleaned up legacy code and using a clenaer function and newner waitForKeyElements - no jQuery!
 */
 
 const DEBUG = true;
@@ -40,9 +41,9 @@ function getCaseStatus() {
 
     let totalCases = 0;
     let totalCRP = 0;
+    let caseRows = document.getElementsByClassName("x-grid3-row-table");
 
     for (let row = 0; row < caseRows.length; row++) {
-        let caseRows = document.getElementsByClassName("x-grid3-row-table");
         let statusField = caseRows[row].rows[0].cells[statusFieldCol];
         let caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
 
