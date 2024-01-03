@@ -7,13 +7,13 @@
 // @author       Michael Dakin
 // @match        https://*.my.salesforce.com/500*
 // @grant        none
-// @downloadURL  https://github.com/michaeldakin/tampermonkey/blob/main/statusHighlight.js
+// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/statusHighlight.js
 // ==/UserScript==
 
 /*
 * Version history:
 * 0.1 - here we are
-* 0.2 - cleaned up legacy code and using a clenaer function and newner waitForKeyElements - no jQuery!
+* 0.2 - cleaned up legacy code and using a new version of waitForKeyElements - no jQuery!
 */
 
 const DEBUG = true;
@@ -25,10 +25,8 @@ function log(logmessage) {
     }
 }
 
-// Main func to loop over SFDC table nd find cases with desired status and highlight the status to make it much easier to view cases requiring attention at a glance
+// Loop over `caseRows` table and find `Case Number` & `Status` fields, we then apply custom styling
 function getCaseStatus() {
-    log("Called getCaseStatus() function")
-
     if (document.querySelector('[title="Case Number"]') != null) {
         var caseNumFieldCol = document.querySelector('[title="Case Number"]').parentNode.cellIndex; // get the index of the case status
         log("caseNumFieldCol " + caseNumFieldCol);
@@ -39,9 +37,9 @@ function getCaseStatus() {
         log("statusFieldCol " + statusFieldCol);
     }
 
+    let caseRows = document.getElementsByClassName("x-grid3-row-table");
     let totalCases = 0;
     let totalCRP = 0;
-    let caseRows = document.getElementsByClassName("x-grid3-row-table");
 
     for (let row = 0; row < caseRows.length; row++) {
         let statusField = caseRows[row].rows[0].cells[statusFieldCol];
