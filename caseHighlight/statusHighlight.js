@@ -18,7 +18,7 @@
 const DEBUG = true;
 
 function log(logmessage) {
-    var logtime = new Date().toISOString();
+    let logtime = new Date().toISOString();
     if (DEBUG == true) {
         console.log("[UserScipt:caseHighlighter.js] " + logtime + " [DEBUG] " + logmessage);
     }
@@ -26,7 +26,7 @@ function log(logmessage) {
 
 // Main func to loop over SFDC table nd find cases with desired status and highlight the status to make it much easier to view cases requiring attention at a glance
 function getCaseStatus() {
-    var caseRows = document.getElementsByClassName("x-grid3-row-table");
+    let caseRows = document.getElementsByClassName("x-grid3-row-table");
 
     if (document.querySelector('[title="Case Number"]') != null) {
         var caseNumFieldCol = document.querySelector('[title="Case Number"]').parentNode.cellIndex; // get the index of the case status
@@ -40,13 +40,14 @@ function getCaseStatus() {
 
     let totalCases = 0;
     let totalCRP = 0;
-    for (var row = 0; row < caseRows.length; row++) {
-        var statusField = caseRows[row].rows[0].cells[statusFieldCol];
-        var caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
+
+    for (let row = 0; row < caseRows.length; row++) {
+        let statusField = caseRows[row].rows[0].cells[statusFieldCol];
+        let caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
 
         if (statusField.innerText === "Customer Response Provided") {
-            caseRows[row].rows[0].cells[statusFieldCol].style.background = bgColour;
-            caseRows[row].rows[0].cells[statusFieldCol].style.color = textColour;
+            statusField.style.background = bgColour;
+            statusField.style.color = textColour;
 
             totalCRP += 1;
             log("Highlighted case " + caseID);
