@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         caseHighlighter.js
+// @name         statusHighlight.js
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Highlight cases with specific table paramaters for Salesforce Performance edition
@@ -7,7 +7,7 @@
 // @author       Michael Dakin
 // @match        https://*.my.salesforce.com/500*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/caseHighlight/statusHighligh.js
+// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/caseHighlight/statusHighlight.js
 // ==/UserScript==
 
 /*
@@ -26,7 +26,7 @@ function log(logmessage) {
 
 // Main func to loop over SFDC table nd find cases with desired status and highlight the status to make it much easier to view cases requiring attention at a glance
 function getCaseStatus() {
-    let caseRows = document.getElementsByClassName("x-grid3-row-table");
+    log("Called getCaseStatus() function")
 
     if (document.querySelector('[title="Case Number"]') != null) {
         var caseNumFieldCol = document.querySelector('[title="Case Number"]').parentNode.cellIndex; // get the index of the case status
@@ -42,6 +42,7 @@ function getCaseStatus() {
     let totalCRP = 0;
 
     for (let row = 0; row < caseRows.length; row++) {
+        let caseRows = document.getElementsByClassName("x-grid3-row-table");
         let statusField = caseRows[row].rows[0].cells[statusFieldCol];
         let caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
 
