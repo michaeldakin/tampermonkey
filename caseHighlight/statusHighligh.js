@@ -7,6 +7,7 @@
 // @author       Michael Dakin
 // @match        https://*.my.salesforce.com/500*
 // @grant        none
+// @downloadURL  https://raw.githubusercontent.com/michaeldakin/tampermonkey/main/caseHighlight/statusHighligh.js
 // ==/UserScript==
 
 /*
