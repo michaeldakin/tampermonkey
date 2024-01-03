@@ -46,8 +46,8 @@ function getCaseStatus() {
         let caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
 
         if (statusField.innerText === "Customer Response Provided") {
-            statusField.style.background = bgColour;
-            statusField.style.color = textColour;
+            statusField.style.background = "red";
+            statusField.style.color = "white";
 
             totalCRP += 1;
             log("Highlighted case " + caseID);
