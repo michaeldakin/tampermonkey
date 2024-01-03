@@ -26,7 +26,7 @@ function log(logmessage) {
 // Main func to loop over SFDC table nd find cases with desired status and highlight the status to make it much easier to view cases requiring attention at a glance
 function getCaseStatus() {
     var caseRows = document.getElementsByClassName("x-grid3-row-table");
-    // var caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
+    var caseID = caseRows[row].rows[0].cells[caseNumFieldCol].innerText;
 
     if (document.querySelector('[title="Case Number"]') != null) {
         var caseNumFieldCol = document.querySelector('[title="Case Number"]').parentNode.cellIndex; // get the index of the case status
@@ -38,22 +38,26 @@ function getCaseStatus() {
         log("statusFieldCol " + statusFieldCol);
     }
 
-    function highlightStatusField(bgColour, textColour) {
+    function highlightRow(bgColour, textColour) {
         caseRows[row].rows[0].cells[statusFieldCol].style.background = bgColour;
         caseRows[row].rows[0].cells[statusFieldCol].style.color = textColour;
     }
 
     let totalCases = 0;
+    let totalCRP = 0;
     for (var row = 0; row < caseRows.length; row++) {
         var statusField = caseRows[row].rows[0].cells[statusFieldCol];
 
         if (statusField.innerText === "Customer Response Provided") {
-            highlightStatusField("red", "white")
+            highlightRow("red", "white");
+            totalCRP += 1;
+            log("Highlighted case " + caseID);
         }
 
         totalCases += 1;
     }
     log("Total cases: " + totalCases);
+    log("Total Custom Responded cases: " + totalCRP);
 }
 
 waitForKeyElements("div.x-grid3-row.x-grid3-row-last", getCaseStatus);
